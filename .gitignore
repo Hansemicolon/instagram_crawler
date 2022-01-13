@@ -3,3 +3,6 @@
 
 # saved pickle data
 *.pickle
+
+# pycharm files
+.idea/
