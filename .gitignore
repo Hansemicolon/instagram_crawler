@@ -1,0 +1,5 @@
+# venv
+/venv
+
+# saved pickle data
+*.pickle
