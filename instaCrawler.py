@@ -11,6 +11,9 @@ class InstaCrawler:
 
     def __init__(self):
         options = webdriver.ChromeOptions()
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        options.add_experimental_option('useAutomationExtension', False)
+        options.add_argument('disable-blink-features=AutomationControlled')
         options.add_argument("user-agent=Mozilla/5.0 (Linux; Android 9; SM-A102U Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.136 Mobile Safari/537.36 Instagram 155.0.0.37.107 Android (28/9; 320dpi; 720x1468; samsung; SM-A102U; a10e; exynos7885; en_US; 239490550)")
         capabilities = DesiredCapabilities.CHROME
         capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
@@ -97,8 +100,16 @@ class InstaCrawler:
 
         for i in range(0, count):
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            result.extend(self.__get_tag_result())
-
+            try:
+                result.extend(self.__get_tag_result())
+            except Exception as e:
+                print(str(e))
+        try:
+            self.driver.get(url + "?__a=1")
+            init_data = json.loads(self.driver.find_element(By.CSS_SELECTOR, 'body').text)
+            result.append({'network_id': None, 'url': self.driver.current_url, 'item': init_data})
+        except Exception as e:
+            print(str(e))
         return result
 
 
