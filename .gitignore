@@ -6,3 +6,5 @@
 
 # pycharm files
 .idea/
+
+*.pyc
