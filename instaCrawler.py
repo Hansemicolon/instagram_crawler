@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
 import json, time, random
+import instaParser
 
 
 class InstaCrawler:
@@ -126,8 +127,9 @@ if __name__ == '__main__':
             input_count = 5
         res = c.main(input_keyword, input_count)
 
-        with open(f'{input_keyword}_res.pickle', 'wb') as f:
-            pickle.dump(res, f, pickle.HIGHEST_PROTOCOL)
+        instaParser.parse_main(res, input_keyword)
+        # with open(f'{input_keyword}_res.pickle', 'wb') as f:
+        #     pickle.dump(res, f, pickle.HIGHEST_PROTOCOL)
         run_status = input("종료 하시겠습니까? (Y/N)")
         is_running = True if run_status in ['Y', 'N'] and run_status == 'N' else False
 
