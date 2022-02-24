@@ -118,20 +118,24 @@ if __name__ == '__main__':
     import pickle
     c = InstaCrawler()
     is_running = True
-    while is_running:
-        input_keyword = input("(Required) 키워드를 입력하세요")
-        input_count = input("(Optional) 수집할 페이지 수를 입력하세요(10 이상 입력 금지). 입력 하지 않거나 정수가 아닐시 5로 고정")
+    mbti_list = ['intp','entp','istp','estp','infp','enfp','intj','esfp','infj','istj','isfp','entj','enfj','estj','esfj','isfj']
+    # while is_running:
+    for mbti in mbti_list:
+        # input_keyword = input("(Required) 키워드를 입력하세요")
+        # input_count = input("(Optional) 수집할 페이지 수를 입력하세요(10 이상 입력 금지). 입력 하지 않거나 정수가 아닐시 5로 고정")
+        input_count = 30
+        input_keyword = mbti
         try:
             input_count = int(input_count)
         except Exception as e:
-            input_count = 5
+            input_count = 30
         res = c.main(input_keyword, input_count)
 
         instaParser.parse_main(res, input_keyword)
-        # with open(f'{input_keyword}_res.pickle', 'wb') as f:
-        #     pickle.dump(res, f, pickle.HIGHEST_PROTOCOL)
-        run_status = input("종료 하시겠습니까? (Y/N)")
-        is_running = True if run_status in ['Y', 'N'] and run_status == 'N' else False
+            # with open(f'{input_keyword}_res.pickle', 'wb') as f:
+            #     pickle.dump(res, f, pickle.HIGHEST_PROTOCOL)
+            # run_status = input("종료 하시겠습니까? (Y/N)")
+            # is_running = True if run_status in ['Y', 'N'] and run_status == 'N' else False
 
     # TODO
     """
